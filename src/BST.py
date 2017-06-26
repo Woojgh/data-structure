@@ -2,11 +2,12 @@
 
 
 class Node(object):
-    def __init__(self, entry, left=None, iterable=None):
+    def __init__(self, entry, left=None, iterable=None, parent=None):
         """Node for tree."""
         self.val = entry
         self.left = left
         self.right = iterable
+        self.parent = parent
 
 
 class BinarySearchTree(object):
@@ -40,6 +41,7 @@ class BinarySearchTree(object):
                     else:
                         curr.right = Node(entry)
                         self.size += 1
+                        Node.parent = curr
                 elif entry < curr.val:
                     if curr.left:
                         curr = curr.left
@@ -47,6 +49,7 @@ class BinarySearchTree(object):
                     else:
                         curr.left = Node(entry)
                         self.size += 1
+                        Node.parent = curr
                 else:
                     return
 
@@ -130,6 +133,9 @@ class BinarySearchTree(object):
     def postOrder(self):
         for node_data in self.inOrderTrav():
             yield node_data
+
+    def deletion():
+        pass
 
 if __name__ == '__main__':
     import sys
