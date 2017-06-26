@@ -83,55 +83,55 @@ class BinarySearchTree(object):
                 nodes_to_visit.append(curr.right)
             yield curr
 
-    def pre_orderTrav(self, entry):
+    def pre_order_trav(self, entry=None):
         if entry:
             curr = entry
         else:
             curr = self.root
         yield curr.val
         if curr.left:
-            for item in self.inOrderTrav(curr.left):
+            for item in self.pre_order_trav(curr.left):
                 yield item
         if curr.right:
-            for item in self.inOrderTrav(curr.right):
+            for item in self.pre_order_trav(curr.right):
                 yield item
 
-    def preOrder(self):
-        for node_data in self.inOrderTrav():
+    def pre_order(self):
+        for node_data in self.pre_order_trav():
             yield node_data
 
-    def inOrderTrav(self, entry=None):
+    def in_order_trav(self, entry=None):
         if entry:
             curr = entry
         else:
             curr = self.root
         if curr.left:
-            for item in self.inOrderTrav(curr.left):
+            for item in self.in_order_trav(curr.left):
                 yield item
         yield curr.val
         if curr.right:
-            for item in self.inOrderTrav(curr.right):
+            for item in self.in_order_trav(curr.right):
                 yield item
 
-    def inOrder(self):
-        for node_data in self.inOrderTrav():
+    def in_order(self):
+        for node_data in self.in_order_trav():
             yield node_data
 
-    def post_orderTrav(self, entry):
+    def post_order_trav(self, entry=None):
         if entry:
             curr = entry
         else:
             curr = self.root
         if curr.left:
-            for item in self.inOrderTrav(curr.left):
+            for item in self.post_order_trav(curr.left):
                 yield item
         if curr.right:
-            for item in self.inOrderTrav(curr.right):
+            for item in self.post_order_trav(curr.right):
                 yield item
         yield curr.val
 
-    def postOrder(self):
-        for node_data in self.inOrderTrav():
+    def post_order(self):
+        for node_data in self.post_order_trav():
             yield node_data
 
     def deletion():
