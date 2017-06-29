@@ -16,12 +16,14 @@ class BinarySearchTree(object):
         # import pdb; pdb.set_trace()
         """This will sety what wwe will be iterating through."""
         self.visited = []
-        self.list = []
+        # self.list = []
         self.size = 0
         self.root = None
-        if iterable:
+        self.iterable = iterable
+        if iterable is not None:
             if type(iterable) in [list, tuple]:
                 for element in iterable:
+                    # self.list.append(element)
                     self.insert(element)
 
     def insert(self, entry):
@@ -59,6 +61,7 @@ class BinarySearchTree(object):
             raise TypeError("NUMBERS!!!!! numbers...")
         else:
             curr = self.root
+            # import pdb; pdb.set_trace()
             while curr:
                 if entry > curr.val:
                     if curr.right:
@@ -72,15 +75,15 @@ class BinarySearchTree(object):
                     return curr
 
     def breadth_first(self):
-        nodes_to_visit = []
+        self.nodes_to_visit = []
         curr = self.root
-        nodes_to_visit.append(curr)
-        while nodes_to_visit:
-            curr = nodes_to_visit.pop(0)
+        self.nodes_to_visit.append(curr)
+        while self.nodes_to_visit:
+            curr = self.nodes_to_visit.pop(0)
             if curr.left:
-                nodes_to_visit.append(curr.left)
+                self.nodes_to_visit.append(curr.left)
             if curr.right:
-                nodes_to_visit.append(curr.right)
+                self.nodes_to_visit.append(curr.right)
             yield curr
 
     def pre_order_trav(self, entry=None):
@@ -135,11 +138,12 @@ class BinarySearchTree(object):
             yield node_data
 
     def deletion():
+        """nope"""
         pass
 
 if __name__ == '__main__':
     import sys
     b = BinarySearchTree([5,3,7,2,8,4,9,1])
-    gen = b.inOrder()
+    gen = b.in_order()
     for i in range(5):
         print(next(gen))
