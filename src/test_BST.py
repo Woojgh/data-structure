@@ -26,4 +26,10 @@ def test_tree_empty():
     assert b.size == 0
 
 
+def test_bitr_iter_in_order():
+    """Create a Bin tree with an iterable and check it is equal."""
+    gen = b.in_order()
+    b_list = [item for item in gen]
+    assert b_list == [1, 2, 3, 4, 5, 7, 8, 9]
+
 
