@@ -47,3 +47,15 @@ def test_bitr_iter_post_order():
     assert b_list == [1, 2, 4, 3, 9, 8, 7, 5]
 
 
+def test_bitr_insert():
+    """Push with large value and no bubbling."""
+    b.insert(30)
+    gen = b.in_order()
+    b_list = [item for item in gen]
+    assert b_list == [1, 2, 3, 4, 5, 7, 8, 9, 30]
+    b.insert(2.5)
+    gen = b.in_order()
+    b_list = [item for item in gen]
+    assert b_list == [1, 2, 2.5, 3, 4, 5, 7, 8, 9, 30]
+
+
