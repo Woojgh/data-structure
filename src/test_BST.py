@@ -18,3 +18,12 @@ def bitr_iter():
     """Init a new Binary tree from an iterable."""
     gen = b.in_order()
     return gen
+
+
+def test_tree_empty():
+    """Instantiate a new Binary tree, that should be an empty list."""
+    b = BinarySearchTree([])
+    assert b.size == 0
+
+
+
