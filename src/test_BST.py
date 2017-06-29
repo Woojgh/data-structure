@@ -59,3 +59,17 @@ def test_bitr_insert():
     assert b_list == [1, 2, 2.5, 3, 4, 5, 7, 8, 9, 30]
 
 
+def test_bitr_search():
+    assert b.search(2).left.val == 1
+
+
+# def test_bitr_breadth():
+#     bist = []
+#     bf = b.breadth_first()
+#     for i in bf:
+#         bist.append(i)
+
+# def test_
+
+
+
