@@ -33,3 +33,10 @@ def test_bitr_iter_in_order():
     assert b_list == [1, 2, 3, 4, 5, 7, 8, 9]
 
 
+def test_bitr_iter_pre_order():
+    """Create a Bin tree with an iterable and check it is equal."""
+    gen = b.pre_order()
+    b_list = [item for item in gen]
+    assert b_list == [5, 3, 2, 1, 4, 7, 8, 9]
+
+
