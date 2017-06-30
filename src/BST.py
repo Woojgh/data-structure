@@ -16,14 +16,14 @@ class BinarySearchTree(object):
         # import pdb; pdb.set_trace()
         """This will sety what wwe will be iterating through."""
         self.visited = []
-        # self.list = []
+        self.list = []
         self.size = 0
         self.root = None
         self.iterable = iterable
         if iterable is not None:
             if type(iterable) in [list, tuple]:
                 for element in iterable:
-                    # self.list.append(element)
+                    self.list.append(element)
                     self.insert(element)
 
     def insert(self, entry):
@@ -142,8 +142,6 @@ class BinarySearchTree(object):
         pass
 
 if __name__ == '__main__':
-    import sys
-    b = BinarySearchTree([5,3,7,2,8,4,9,1])
+    b = BinarySearchTree([5, 3, 7, 2, 8, 4, 9, 1])
     gen = b.in_order()
-    for i in range(5):
-        print(next(gen))
+    print([i for i in gen])

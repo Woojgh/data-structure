@@ -47,6 +47,11 @@ def test_bitr_iter_post_order():
     assert b_list == [1, 2, 4, 3, 9, 8, 7, 5]
 
 
+def test_bitr_breadth():
+    bf = b.breadth_first()
+    assert [i.val for i in bf] == [5, 3, 7, 2, 4, 8, 1, 9]
+
+
 def test_bitr_insert():
     """Push with large value and no bubbling."""
     b.insert(30)
@@ -63,11 +68,6 @@ def test_bitr_search():
     assert b.search(2).left.val == 1
 
 
-# def test_bitr_breadth():
-#     bist = []
-#     bf = b.breadth_first()
-#     for i in bf:
-#         bist.append(i)
 
 # def test_
 
