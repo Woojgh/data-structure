@@ -61,7 +61,6 @@ class BinarySearchTree(object):
             raise TypeError("NUMBERS!!!!! numbers...")
         else:
             curr = self.root
-            # import pdb; pdb.set_trace()
             while curr:
                 if entry > curr.val:
                     if curr.right:
@@ -141,7 +140,7 @@ class BinarySearchTree(object):
         """nope"""
         pass
 
-if __name__ == '__main__':
+if __name__ == '__main__':  # pragma: no cover
     b = BinarySearchTree([5, 3, 7, 2, 8, 4, 9, 1])
     gen = b.in_order()
     print([i for i in gen])
