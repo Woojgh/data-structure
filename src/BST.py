@@ -2,6 +2,8 @@
 
 
 class Node(object):
+    """Class for the data node in our BST."""
+
     def __init__(self, entry, left=None, iterable=None):
         """Node for tree."""
         self.val = entry
@@ -10,10 +12,10 @@ class Node(object):
 
 
 class BinarySearchTree(object):
+    """Class with the containing methods to manipulate and create a BST."""
 
     def __init__(self, iterable=None):
-        # import pdb; pdb.set_trace()
-        """This will sety what wwe will be iterating through."""
+        """The init will set what we will be iterating through."""
         self.visited = []
         self.list = []
         self.size = 0
@@ -24,7 +26,7 @@ class BinarySearchTree(object):
                     self.insert(element)
 
     def insert(self, entry):
-        # import pdb; pdb.set_trace()
+        """The insert method takes one integer/float and adds it to the BST."""
         if type(entry) not in [float, int]:
             raise TypeError("NUMBERS!!!!! numbers...")
         if not self.root:
@@ -51,7 +53,7 @@ class BinarySearchTree(object):
                     return
 
     def search(self, entry):
-        """."""
+        """Search method takes one float/integer and will search the BST for said value."""
         if type(entry) not in [float, int]:
             raise TypeError("NUMBERS!!!!! numbers...")
         else:
@@ -69,6 +71,7 @@ class BinarySearchTree(object):
                     return curr
 
     def breadth_first(self):
+        """Yield a generator for a breadth first traversal."""
         nodes_to_visit = []
         curr = self.root
         nodes_to_visit.append(curr)
@@ -80,60 +83,65 @@ class BinarySearchTree(object):
                 nodes_to_visit.append(curr.right)
             yield curr
 
-    def pre_orderTrav(self, entry):
+    def pre_order_trav(self, entry):
+        """Helper method to populate a depth first pre order traversal."""
         if entry:
             curr = entry
         else:
             curr = self.root
         yield curr.val
         if curr.left:
-            for item in self.inOrderTrav(curr.left):
+            for item in self.pre_order_trav(curr.left):
                 yield item
         if curr.right:
-            for item in self.inOrderTrav(curr.right):
+            for item in self.pre_order_trav(curr.right):
                 yield item
 
-    def preOrder(self):
-        for node_data in self.inOrderTrav():
+    def pre_order(self):
+        """Call method for a generator return on a preorder depth first traversal."""
+        for node_data in self.pre_order_trav():
             yield node_data
 
-    def inOrderTrav(self, entry=None):
+    def in_order_trav(self, entry=None):
+        """Helper method to populate a depth first in order traversal."""
         if entry:
             curr = entry
         else:
             curr = self.root
         if curr.left:
-            for item in self.inOrderTrav(curr.left):
+            for item in self.in_order_trav(curr.left):
                 yield item
         yield curr.val
         if curr.right:
-            for item in self.inOrderTrav(curr.right):
+            for item in self.in_order_trav(curr.right):
                 yield item
 
-    def inOrder(self):
-        for node_data in self.inOrderTrav():
+    def in_order(self):
+        """Call method for a generator return on a in order depth first traversal."""
+        for node_data in self.in_order_trav():
             yield node_data
 
-    def post_orderTrav(self, entry):
+    def post_order_trav(self, entry):
+        """Helper method to populate a depth first post order traversal."""
         if entry:
             curr = entry
         else:
             curr = self.root
         if curr.left:
-            for item in self.inOrderTrav(curr.left):
+            for item in self.post_order_trav(curr.left):
                 yield item
         if curr.right:
-            for item in self.inOrderTrav(curr.right):
+            for item in self.post_order_trav(curr.right):
                 yield item
         yield curr.val
 
-    def postOrder(self):
-        for node_data in self.inOrderTrav():
+    def post_order(self):
+        """Call method for a generator return on a post order depth first traversal."""
+        for node_data in self.post_order_trav():
             yield node_data
 
 if __name__ == '__main__':
-    import sys
-    b = BinarySearchTree([5,3,7,2,8,4,9,1])
+    b = BinarySearchTree([5, 3, 7, 2, 8, 4, 9, 1])
     gen = b.inOrder()
     for i in range(5):
         print(next(gen))
