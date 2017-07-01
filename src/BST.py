@@ -136,9 +136,23 @@ class BinarySearchTree(object):
         for node_data in self.post_order_trav():
             yield node_data
 
-    def deletion():
+    def deletion(self, entry, entry_exist=None):
         """nope"""
-        pass
+        self.search(entry)
+        if entry_exist:
+            if entry.left is None and entry.right is None:
+                self.pop(entry)
+            elif entry.left and not entry.right:
+                self.entry.val = self.entry.left.val
+                self.pop(entry.left)
+            elif entry.right and not entry.left:
+                self.entry.val = self.entry.right.val
+                self.pop(entry.right)
+        elif self.search(entry):
+            return self.deletion(entry, True)
+        else:
+            return 'Cannot delete what does not exist'
+
 
 if __name__ == '__main__':  # pragma: no cover
     b = BinarySearchTree([5, 3, 7, 2, 8, 4, 9, 1])
