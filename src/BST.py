@@ -152,7 +152,15 @@ class BinarySearchTree(object):
             return self.deletion(entry, True)
         else:
             return 'Cannot delete what does not exist'
-
+            """Search for node target
+            if no target exists, then we break function and return none.
+            if target exists, do a balance check. 
+            insert node to check and check thenlength of left and right child.
+            subtract the smaller from the larger, that is our child tree to look for node replacment.
+                if left child, we get the right most grandchild. if right most child has left child, assign the child to rightmost grandchild parent
+                if right child, we get left most grand child. if left most child has left child, assign the child to leftmost grandchild parent
+            which ever child tree is used, take that result and replace target node with result.
+"""
 
 if __name__ == '__main__':  # pragma: no cover
     b = BinarySearchTree([5, 3, 7, 2, 8, 4, 9, 1])
