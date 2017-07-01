@@ -73,6 +73,15 @@ class BinarySearchTree(object):
                 else:
                     return curr
 
+    def depth_first(self, entry):
+        if entry is None:
+            return 0
+        left_depth = self.depth_first(entry.left)
+        right_depth = self.depth_first(entry.right)
+        if (left_depth > right_depth):
+            return left_depth + 1
+        return right_depth + 1
+
     def breadth_first(self):
         self.nodes_to_visit = []
         curr = self.root
@@ -136,10 +145,20 @@ class BinarySearchTree(object):
         for node_data in self.post_order_trav():
             yield node_data
 
+    def check_that_balance(self, target):
+        """check the balance of your treeeee"""
+        if self.size == 0:
+            return 0
+        if not target:
+            target = self.root
+        return self.depth_first(target.right) - self.depth_first(target.left)
+
     def deletion(self, entry, entry_exist=None):
         """nope"""
         self.search(entry)
-        if entry_exist:
+        if entry.exist is None:
+            return 'This is the end of all that you know!'
+        elif entry_exist:
             if entry.left is None and entry.right is None:
                 self.pop(entry)
             elif entry.left and not entry.right:
