@@ -151,7 +151,21 @@ class BinarySearchTree(object):
             return 0
         if not target:
             target = self.root
+        else:
+            target = self.search(target)
         return self.depth_first(target.right) - self.depth_first(target.left)
+
+    def find_min_depth(self, target):
+        curr = target
+        while curr.left is not None:
+            curr = curr.left
+        return curr
+
+    def find_max_depth(self, target):
+        curr = target
+        while curr.right is not None:
+            curr = curr.right
+        return curr
 
     def deletion(self, entry, entry_exist=None):
         """nope"""
