@@ -187,7 +187,7 @@ class BinarySearchTree(object):
             return 'Cannot delete what does not exist'
             """Search for node target
             if no target exists, then we break function and return none.
-            if target exists, do a balance check. 
+            if target exists, do a balance check.
             insert node to check and check thenlength of left and right child.
             subtract the smaller from the larger, that is our child tree to look for node replacment.
                 if left child, we get the right most grandchild. if right most child has left child, assign the child to rightmost grandchild parent
