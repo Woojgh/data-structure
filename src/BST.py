@@ -167,24 +167,46 @@ class BinarySearchTree(object):
             curr = curr.right
         return curr
 
-    def deletion(self, entry, entry_exist=None):
+    def deletion(self, target):
         """nope"""
-        self.search(entry)
-        if entry.exist is None:
+        delete_node = self.search(target)
+        if delete_node is None:
             return 'This is the end of all that you know!'
-        elif entry_exist:
-            if entry.left is None and entry.right is None:
-                self.pop(entry)
-            elif entry.left and not entry.right:
-                self.entry.val = self.entry.left.val
-                self.pop(entry.left)
-            elif entry.right and not entry.left:
-                self.entry.val = self.entry.right.val
-                self.pop(entry.right)
-        elif self.search(entry):
-            return self.deletion(entry, True)
         else:
-            return 'Cannot delete what does not exist'
+            self._size -= 1
+            if delete_node.left is None and delete_node.right is None:
+                if delete_node > delete_node.parent:
+                    delete_node.parent.right = None
+                else:
+                    delete_node.parent.left = None
+            elif delete_node.left and not delete_node.right:
+                if delete_node > delete_node.parent:
+                    delete_node.parent.right = delete_node.left
+                else:
+                    delete_node.parent.left = delete_node.left
+            elif delete_node.right and not delete_node.left:
+                if delete_node > delete_node.parent:
+                    delete_node.parent.right = delete_node.right
+                else:
+                    delete_node.parent.left = delete_node.right
+            else:
+                if self.check_that_balance() > 0:
+                    min_val = self.find_min_depth(delete_node.right)
+                    delete_node.val = min_val.val
+                    if min_val.right is None:
+                        min_val.parent.left = None
+                    else:
+                        min_val.right.parent = min_val.parent
+                        min_val.parent.left = min_val.right
+                else:
+                     max_val = self.find_max_depth(delete_node.left)
+                    delete_node.val = max_val.val
+                    if max_val.left is None:
+                        max_val.parent.right = None
+                    else:
+                        max_val.left.parent = max_val.parent
+                        max_val.parent.right = max_val.left
+
             """Search for node target
             if no target exists, then we break function and return none.
             if target exists, do a balance check. 
