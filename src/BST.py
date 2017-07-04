@@ -167,35 +167,48 @@ class BinarySearchTree(object):
             curr = curr.right
         return curr
 
-    def deletion(self, entry, entry_exist=None):
+    def deletion(self, target):
         """nope"""
-        self.search(entry)
-        if entry.exist is None:
-            return 'This is the end of all that you know!'
-        elif entry_exist:
-            if entry.left is None and entry.right is None:
-                self.pop(entry)
-            elif entry.left and not entry.right:
-                self.entry.val = self.entry.left.val
-                self.pop(entry.left)
-            elif entry.right and not entry.left:
-                self.entry.val = self.entry.right.val
-                self.pop(entry.right)
-        elif self.search(entry):
-            return self.deletion(entry, True)
+        delete_node = self.search(target)
+        if delete_node is None:
+            return 'This is the end!'
         else:
-            return 'Cannot delete what does not exist'
-            """Search for node target
-            if no target exists, then we break function and return none.
-            if target exists, do a balance check.
-            insert node to check and check thenlength of left and right child.
-            subtract the smaller from the larger, that is our child tree to look for node replacment.
-                if left child, we get the right most grandchild. if right most child has left child, assign the child to rightmost grandchild parent
-                if right child, we get left most grand child. if left most child has left child, assign the child to leftmost grandchild parent
-            which ever child tree is used, take that result and replace target node with result.
-"""
+            import pdb; pdb.set_trace()
+            self.size -= 1
+            if delete_node.left is None and delete_node.right is None:
+                if delete_node > delete_node.parent:
+                    delete_node.parent.right = None
+                else:
+                    delete_node.parent.left = None
+            elif delete_node.left and not delete_node.right:
+                if delete_node > delete_node.parent:
+                    delete_node.parent.right = delete_node.left
+                else:
+                    delete_node.parent.left = delete_node.left
+            elif delete_node.right and not delete_node.left:
+                if delete_node > delete_node.parent:
+                    delete_node.parent.right = delete_node.right
+                else:
+                    delete_node.parent.left = delete_node.right
+            else:
+                if self.check_that_balance(target) > 0:
+                    min_val = self.find_min_depth(delete_node.right)
+                    delete_node.val = min_val.val
+                    if min_val.right is None:
+                        min_val.parent.left = None
+                    else:
+                        min_val.right.parent = min_val.parent
+                        min_val.parent.left = min_val.right
+                else:
+                    max_val = self.find_max_depth(delete_node.left)
+                    delete_node.val = max_val.val
+                    if max_val.left is None:
+                        max_val.parent.right = None
+                    else:
+                        max_val.left.parent = max_val.parent
+                        max_val.parent.right = max_val.left
 
 if __name__ == '__main__':  # pragma: no cover
     b = BinarySearchTree([5, 3, 7, 2, 8, 4, 9, 1])
     gen = b.in_order()
-    print([i for i in gen])
+    [i for i in gen]
