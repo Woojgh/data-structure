@@ -43,7 +43,7 @@ class BinarySearchTree(object):
                     else:
                         curr.right = Node(entry)
                         self.size += 1
-                        Node.parent = curr
+                        curr.right.parent = curr
                 elif entry < curr.val:
                     if curr.left:
                         curr = curr.left
@@ -51,7 +51,7 @@ class BinarySearchTree(object):
                     else:
                         curr.left = Node(entry)
                         self.size += 1
-                        Node.parent = curr
+                        curr.left.parent = curr
                 else:
                     return
 
@@ -145,7 +145,7 @@ class BinarySearchTree(object):
         for node_data in self.post_order_trav():
             yield node_data
 
-    def check_that_balance(self, target):
+    def check_that_balance(self, target=None):
         """check the balance of your treeeee"""
         if self.size == 0:
             return 0
@@ -199,7 +199,7 @@ class BinarySearchTree(object):
                         min_val.right.parent = min_val.parent
                         min_val.parent.left = min_val.right
                 else:
-                     max_val = self.find_max_depth(delete_node.left)
+                    max_val = self.find_max_depth(delete_node.left)
                     delete_node.val = max_val.val
                     if max_val.left is None:
                         max_val.parent.right = None
@@ -209,7 +209,7 @@ class BinarySearchTree(object):
 
             """Search for node target
             if no target exists, then we break function and return none.
-            if target exists, do a balance check. 
+            if target exists, do a balance check.
             insert node to check and check thenlength of left and right child.
             subtract the smaller from the larger, that is our child tree to look for node replacment.
                 if left child, we get the right most grandchild. if right most child has left child, assign the child to rightmost grandchild parent

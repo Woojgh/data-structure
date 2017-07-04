@@ -165,3 +165,16 @@ def test_bitr_insert():
     genc = c.in_order()
     c_list = [item for item in genc]
     assert c_list == [-94, -6, -2, -1, 0, 2, 22.54, 22.55, 31]
+
+
+def test_find_min_depth():
+    """Test if the min depth function returns the farthest left."""
+    assert a.find_min_depth(a.root).val == 0
+
+    def test_delete_empty():
+        """."""
+        pass
+
+    def test_max_depth():
+        """Test if the max depth function returns the farthest right."""
+        pass
