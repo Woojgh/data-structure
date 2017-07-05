@@ -149,11 +149,8 @@ class BinarySearchTree(object):
         """check the balance of your treeeee"""
         if self.size == 0:
             return 0
-        if not target:
-            target = self.root
-        else:
-            target = self.search(target)
-        return self.depth_first(target.right) - self.depth_first(target.left)
+        if target is not None:
+            return self.depth_first(target.right) - self.depth_first(target.left)
 
     def find_min_depth(self, target):
         curr = target
@@ -214,6 +211,13 @@ class BinarySearchTree(object):
                         max_val.val = max_val.left.val
                         max_val.left.parent = None
                         max_val.left = None
+
+    def rotate_left(self):
+        self.check_that_balance()
+        if 
+    def rotate_right(self):
+
+
 
 if __name__ == '__main__':  # pragma: no cover
     b = BinarySearchTree([5, 3, 7, 2, 8, 4, 9, 1])
