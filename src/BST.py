@@ -16,14 +16,14 @@ class BinarySearchTree(object):
         # import pdb; pdb.set_trace()
         """This will sety what wwe will be iterating through."""
         self.visited = []
-        # self.list = []
+        self.list = []
         self.size = 0
         self.root = None
         self.iterable = iterable
         if iterable is not None:
             if type(iterable) in [list, tuple]:
                 for element in iterable:
-                    # self.list.append(element)
+                    self.list.append(element)
                     self.insert(element)
 
     def insert(self, entry):
@@ -43,7 +43,7 @@ class BinarySearchTree(object):
                     else:
                         curr.right = Node(entry)
                         self.size += 1
-                        Node.parent = curr
+                        curr.right.parent = curr
                 elif entry < curr.val:
                     if curr.left:
                         curr = curr.left
@@ -51,7 +51,7 @@ class BinarySearchTree(object):
                     else:
                         curr.left = Node(entry)
                         self.size += 1
-                        Node.parent = curr
+                        curr.left.parent = curr
                 else:
                     return
 
@@ -61,7 +61,6 @@ class BinarySearchTree(object):
             raise TypeError("NUMBERS!!!!! numbers...")
         else:
             curr = self.root
-            # import pdb; pdb.set_trace()
             while curr:
                 if entry > curr.val:
                     if curr.right:
@@ -73,6 +72,15 @@ class BinarySearchTree(object):
                         continue
                 else:
                     return curr
+
+    def depth_first(self, entry):
+        if entry is None:
+            return 0
+        left_depth = self.depth_first(entry.left)
+        right_depth = self.depth_first(entry.right)
+        if (left_depth > right_depth):
+            return left_depth + 1
+        return right_depth + 1
 
     def breadth_first(self):
         self.nodes_to_visit = []
@@ -137,13 +145,81 @@ class BinarySearchTree(object):
         for node_data in self.post_order_trav():
             yield node_data
 
-    def deletion():
-        """nope"""
-        pass
+    def check_that_balance(self, target=None):
+        """check the balance of your treeeee"""
+        if self.size == 0:
+            return 0
+        if target is not None:
+            return self.depth_first(target.right) - self.depth_first(target.left)
 
-if __name__ == '__main__':
-    import sys
-    b = BinarySearchTree([5,3,7,2,8,4,9,1])
+    def find_min_depth(self, target):
+        curr = target
+        while curr.left is not None:
+            curr = curr.left
+        return curr
+
+    def find_max_depth(self, target):
+        curr = target
+        while curr.right is not None:
+            curr = curr.right
+        return curr
+
+    def deletion(self, target):
+        """nope"""
+        delete_node = self.search(target)
+        if delete_node is None:
+            return 'This is the end!'
+        else:
+            self.size -= 1
+            if delete_node.left is None and delete_node.right is None:
+                if delete_node.val > delete_node.parent.val:
+                    delete_node.parent.right = None
+                else:
+                    delete_node.parent.left = None
+            elif delete_node.left and not delete_node.right:
+                if delete_node.val > delete_node.parent.val:
+                    delete_node.parent.right = delete_node.left
+                    delete_node.left.parent = delete_node.parent
+                else:
+                    delete_node.parent.left = delete_node.left
+                    delete_node.left.parent = delete_node.parent
+            elif delete_node.right and not delete_node.left:
+                if delete_node.val > delete_node.parent.val:
+                    delete_node.parent.right = delete_node.right
+                    delete_node.right.parent = delete_node.parent
+                else:
+                    delete_node.parent.left = delete_node.right
+                    delete_node.left.parent = delete_node.parent
+            else:
+                if self.check_that_balance(target) > 0:
+                    min_val = self.find_min_depth(delete_node.right)
+                    delete_node.val = min_val.val
+                    if min_val.right is None:
+                        min_val.parent.left = None
+                        min_val.parent = None
+                    else:
+                        min_val.val = min_val.right.val
+                        min_val.right.parent = None
+                        min_val.right = None
+                else:
+                    max_val = self.find_max_depth(delete_node.left)
+                    delete_node.val = max_val.val
+                    if max_val.left is None:
+                        max_val.parent.right = None
+                        max_val.parent = None
+                    else:
+                        max_val.val = max_val.left.val
+                        max_val.left.parent = None
+                        max_val.left = None
+
+    def rotate_left(self):
+        self.check_that_balance()
+        if 
+    def rotate_right(self):
+
+
+
+if __name__ == '__main__':  # pragma: no cover
+    b = BinarySearchTree([5, 3, 7, 2, 8, 4, 9, 1])
     gen = b.in_order()
-    for i in range(5):
-        print(next(gen))
+    [i for i in gen]
