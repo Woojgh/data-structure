@@ -44,6 +44,7 @@ class BinarySearchTree(object):
                         curr.right = Node(entry)
                         self.size += 1
                         curr.right.parent = curr
+                        self.balance_manager(curr)
                 elif entry < curr.val:
                     if curr.left:
                         curr = curr.left
@@ -51,6 +52,7 @@ class BinarySearchTree(object):
                     else:
                         curr.left = Node(entry)
                         self.size += 1
+                        self.balance_manager(curr)
                         curr.left.parent = curr
                 else:
                     return
@@ -284,13 +286,13 @@ class BinarySearchTree(object):
             origin.parent.left = None
             origin.parent = None
 
-    def balance_that_thang(self, node=None):
-        # import pdb; pdb.set_trace()
-        if not node:
-            node = self.root
-        gen = self.breadth_first()
-        for i in [i for i in gen]:
-            self.balance_manager(i)
+    # def balance_that_thang(self, node=None):
+    #     # import pdb; pdb.set_trace()
+    #     if not node:
+    #         node = self.root
+    #     gen = self.breadth_first()
+    #     for i in [i for i in gen]:
+    #         self.balance_manager(i)
 
 
 if __name__ == '__main__':  # pragma: no cover
