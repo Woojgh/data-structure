@@ -212,9 +212,24 @@ class BinarySearchTree(object):
                         max_val.left.parent = None
                         max_val.left = None
 
+    def balance_that_thang(self, node):
+        if not node:
+            node = self.root
+        if self.size % 2 == 0:
+            while self.check_that_balance() > 1:
+                self.rotate_right()
+            while self.check_that_balance() < -1:
+                self.rotate_left()
+        else:
+            while self.check_that_balance() > 0:
+                self.rotate_right()
+            while self.check_that_balance() < 0:
+                self.rotate_left()
+
     def rotate_left(self, node=None):
         if not node:
             node = self.root
+        origin = node
         while node.left:
             node = self.find_max_depth(node.left)
             if node > node.parent:
@@ -225,16 +240,17 @@ class BinarySearchTree(object):
                 node.left.parent = node
                 node.parent.right = node
             else:
-                node.right = self.root
-                node.left = self.root.left
-                self.root.left = None
-                self.root = node
-                self.root.parent.right = None
-                self.root.parent = None
+                node.right = origin
+                node.left = origin.left
+                origin.left = None
+                origin = node
+                origin.parent.right = None
+                origin.parent = None
 
     def rotate_right(self, node=None):
         if not node:
             node = self.root
+        origin = node
         while node.right:
             node = self.find_min_depth(node.right)
             if node > node.parent:
@@ -245,12 +261,19 @@ class BinarySearchTree(object):
                 node.right.parent = node
                 node.parent.left = node
             else:
-                node.left = self.root
-                node.right = self.root.right
-                self.root.right = None
-                self.root = node
-                self.root.parent.left = None
-                self.root.parent = None
+                node.left = origin
+                node.right = origin.right
+                origin.right = None
+                origin = node
+                origin.parent.left = None
+                origin.parent = None
+
+    def balance_manager(self, node=None):
+        if not node:
+            node = self.root
+        gen = self.breadth_first()
+        for i in [i for i in gen]:
+            self.balance_that_thang(i)
 
 
 if __name__ == '__main__':  # pragma: no cover
