@@ -212,11 +212,45 @@ class BinarySearchTree(object):
                         max_val.left.parent = None
                         max_val.left = None
 
-    def rotate_left(self):
-        self.check_that_balance()
-        if 
-    def rotate_right(self):
+    def rotate_left(self, node=None):
+        if not node:
+            node = self.root
+        while node.left:
+            node = self.find_max_depth(node.left)
+            if node > node.parent:
+                node.left = node.parent.parent
+                node.parent = node.left.parent
+                node.right = node.left.right
+                node.right.parent = node
+                node.left.parent = node
+                node.parent.right = node
+            else:
+                node.right = self.root
+                node.left = self.root.left
+                self.root.left = None
+                self.root = node
+                self.root.parent.right = None
+                self.root.parent = None
 
+    def rotate_right(self, node=None):
+        if not node:
+            node = self.root
+        while node.right:
+            node = self.find_min_depth(node.right)
+            if node > node.parent:
+                node.right = node.parent.parent
+                node.parent = node.right.parent
+                node.left = node.right.left
+                node.left.parent = node
+                node.right.parent = node
+                node.parent.left = node
+            else:
+                node.left = self.root
+                node.right = self.root.right
+                self.root.right = None
+                self.root = node
+                self.root.parent.left = None
+                self.root.parent = None
 
 
 if __name__ == '__main__':  # pragma: no cover
