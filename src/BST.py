@@ -153,16 +153,18 @@ class BinarySearchTree(object):
             return self.depth_first(target.right) - self.depth_first(target.left)
 
     def find_min_depth(self, target):
-        curr = target
-        while curr.left is not None:
-            curr = curr.left
-        return curr
+        if target.left is None:
+            return target
+        if target.left is not None:
+            target = target.left
+            return target
 
     def find_max_depth(self, target):
-        curr = target
-        while curr.right is not None:
-            curr = curr.right
-        return curr
+        if target.right is None:
+            return target
+        if target.right is not None:
+            target = target.right
+            return target
 
     def deletion(self, target):
         """nope"""
@@ -212,26 +214,26 @@ class BinarySearchTree(object):
                         max_val.left.parent = None
                         max_val.left = None
 
-    def balance_that_thang(self, node=None):
-        import pdb; pdb.set_trace()
+    def balance_manager(self, node=None):
+        # import pdb; pdb.set_trace()
         if node is None:
             node = self.root
         if self.size % 2 == 0:
-            while self.check_that_balance(node) > 1:
+            if self.check_that_balance(node) > 1:
                 self.rotate_right()
-            while self.check_that_balance(node) < -1:
+            if self.check_that_balance(node) < -1:
                 self.rotate_left()
         else:
-            while self.check_that_balance(node) > 0:
+            if self.check_that_balance(node) > 0:
                 self.rotate_right()
-            while self.check_that_balance(node) < 0:
+            if self.check_that_balance(node) < 0:
                 self.rotate_left()
 
     def rotate_left(self, node=None):
-        if not node:
+        if node is None:
             node = self.root
         origin = node
-        node = self.find_max_depth(node.left)
+        node = self.find_max_depth(origin.left)
         if node.val > node.parent.val:
             if node.parent.parent is None:
                 node.right = origin
@@ -244,7 +246,7 @@ class BinarySearchTree(object):
             node.parent = node.left.parent
             node.right = node.left.right
             node.right.parent = node
-            node.left.parent = node
+            node.left.parent = node.left
             node.parent.right = node
         else:
             node.right = origin
@@ -255,10 +257,11 @@ class BinarySearchTree(object):
             origin.parent = None
 
     def rotate_right(self, node=None):
-        if not node:
+        # import pdb; pdb.set_trace()
+        if node is None:
             node = self.root
         origin = node
-        node = self.find_min_depth(node.right)
+        node = self.find_min_depth(origin.right)
         if node.val > node.parent.val:
             if node.parent.parent is None:
                 node.left = origin
@@ -271,7 +274,7 @@ class BinarySearchTree(object):
             node.parent = node.right.parent
             node.left = node.right.left
             node.left.parent = node
-            node.right.parent = node
+            node.right.parent = node.right
             node.parent.left = node
         else:
             node.left = origin
@@ -281,13 +284,13 @@ class BinarySearchTree(object):
             origin.parent.left = None
             origin.parent = None
 
-    def balance_manager(self, node=None):
-        import pdb; pdb.set_trace()
+    def balance_that_thang(self, node=None):
+        # import pdb; pdb.set_trace()
         if not node:
             node = self.root
         gen = self.breadth_first()
         for i in [i for i in gen]:
-            self.balance_that_thang(i)
+            self.balance_manager(i)
 
 
 if __name__ == '__main__':  # pragma: no cover
