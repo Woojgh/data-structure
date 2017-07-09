@@ -7,24 +7,78 @@ class TrieTree(object):
         # import pdb; pdb.set_trace()
         """This will sety what wwe will be iterating through."""
         self.size = 0
-        self.letters = 0
-        self.roots = []
+        self.letter_count = 0
+        self.root_set = []
+        self.letter_sets = []
 
     def make_tree(self, *words):
-        root = dict()
+        # new_dict = dict()
         for word in words:
-            self.size + 1
-            current_word = root
-            for letter in word:
-                self.letters + 1
-                current_word = current_word.setdefault(letter, {})
-            current_word[end] = end
-        return root
+            current_letter_set = []
+            self.size = self.size + 1
+            # word_dict = new_dict
+            if self.letter_sets == []:
+                self.letter_sets = [word]
+                self.root_set = self.letter_sets
+                return self.letter_sets
+                break
+            else:
+                letter_check = ''
+                for letter in word:
+                    self.letter_count = self.letter_count + 1
+                    letter_check = letter_check + letter
+                    for lset in self.letter_sets:
+                        if letter_check in lset:
+                            good_group = letter_check
+                            continue
+                        else:
+                            import pdb; pdb.set_trace()
+                            current_letter_set = good_group
+                            new_letter_set = []
+                            old_letter_set = []
+                            [new_letter_set.append(letter) for letter in word if letter not in current_letter_set]
+                            new_group_set = ''.join(new_letter_set)
+                            [old_letter_set.append(old) for old in self.letter_sets[0] if old not in good_group]
+                            old_group_set = ''.join(old_letter_set)
+                            self.letter_sets = [current_letter_set]
+                            self.letter_sets.append(old_group_set)
+                            self.letter_sets.append(new_group_set)
+                            return self.letter_sets
 
-    def insert(self, word):
-        word_root = word[0]
-        if word_root not in self.roots:
-            self.roots.append(word_root)
+            #     word_dict = word_dict.setdefault(letter, {})
+            # word_dict[end] = end
+            # self.root_dict.append(new_dict)
+
+    def insert(self, words):
+        for word in words:
+            current_letter_set = []
+            self.size = self.size + 1
+            letter_check = ''
+            for letter in word:
+                self.letter_count = self.letter_count + 1
+                letter_check = letter_check + letter
+                for lset in self.letter_sets:
+                    if letter_check in lset:
+                        good_group = letter_check
+                    elif good_group == lset:
+                        new_letter_set = []
+                        [new_letter_set.append(letter) for letter in word if letter not in good_group]
+                        new_group_set = ''.join(new_letter_set)
+                        self.letter_sets.append()
+                        continue
+                    else:
+                        import pdb; pdb.set_trace()
+                        current_letter_set = good_group
+                        new_letter_set = []
+                        old_letter_set = []
+                        [new_letter_set.append(letter) for letter in word if letter not in current_letter_set]
+                        new_group_set = ''.join(new_letter_set)
+                        [old_letter_set.append(old) for old in self.letter_sets[0] if old not in good_group]
+                        old_group_set = ''.join(old_letter_set)
+                        self.letter_sets = [current_letter_set]
+                        self.letter_sets.append(old_group_set)
+                        self.letter_sets.append(new_group_set)
+                        return self.letter_sets
 
     def search(self, word):
         """."""
