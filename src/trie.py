@@ -10,7 +10,7 @@ class TrieTree(object):
         self.root_set = []
         self.letter_sets = []
 
-    def make_tree(self, *words):
+    def insert(self, *words):
         # new_dict = dict()
         for word in words:
             current_letter_set = []
