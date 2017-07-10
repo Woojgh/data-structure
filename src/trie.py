@@ -21,17 +21,23 @@ class TrieTree(object):
 
             else:
                 import pdb; pdb.set_trace()
+                dict_check = []
+                for i in self.letter_sets:
+                    dict_check.append(i)
+                list_check = []
                 letter_check = ''
                 for curr_set in self.letter_sets:
+                    if type(curr_set) == str:
+                        list_check = curr_set
                     if type(curr_set) == dict:
-                        for item in curr_set.keys():
+                        for item in list(curr_set.keys()):
                             if type(item) == str:
-                                if word[0] not in item:
-                                    self.letter_sets.append({word: word})
-                                    return self.letter_sets
+                                list_check.append(item)
+                        for thing in list_check:
+                            if word[0] in thing:
                                 for letter in word:
                                     letter_check = letter_check + letter
-                                    if letter_check == item:
+                                    if letter_check == thing:
                                         new_level = list(curr_set.values())
                                         current_letter_set = letter_check
                                         new_letter_set = []
@@ -45,11 +51,10 @@ class TrieTree(object):
                                                 tmp = []
                                                 [tmp.append(letter) for letter in word if letter not in current_letter_set]
                                                 tmp = ''.join(tmp)
-                                                for item in curr_set.values():
-                                                    if tmp == item:
-                                                        continue
-                                                    else:
-                                                        new_level[0].append(tmp)
+                                                if tmp == item:
+                                                    continue
+                                                else:
+                                                    new_level[0].append(tmp)
                                                 # self.letter_sets.append(tmp)
 
                                             else:
@@ -73,44 +78,48 @@ class TrieTree(object):
                                     else:
                                         if letter_check in item:
                                             continue
-                    else:
-                        for letter in word:
-                            letter_check = letter_check + letter
-                            if letter_check in curr_set:
-                                continue
                             else:
-                                new_level = []
-                                current_letter_set = letter_check[:-1]
-                                new_letter_set = []
-                                old_letter_set = []
-                                [new_letter_set.append(letter) for letter in word if letter not in current_letter_set]
-                                new_group_set = ''.join(new_letter_set)
-                                [old_letter_set.append(old) for old in self.letter_sets[0] if old not in current_letter_set]
-                                old_group_set = ''.join(old_letter_set)
-                                if current_letter_set in self.letter_sets and current_letter_set != '':
-                                    if current_letter_set == curr_set:
-                                        tmp = []
-                                        [tmp.append(letter) for letter in word if letter not in current_letter_set]
-                                        tmp = ''.join(tmp)
-                                        new_level.append([tmp])
-                                        # self.letter_sets.append(tmp)
-
-                                # else:
-                                    # self.letter_sets.append(current_letter_set)
-                                if new_group_set or old_group_set != '':
-                                    if self.root_set in self.letter_sets:
-                                        self.letter_sets.remove(self.root_set)
-                                        self.root_set = self.letter_sets
-                                    if old_group_set not in self.letter_sets:
-                                        new_level.append(old_group_set)
-                                        # self.letter_sets.append(old_group_set)
-                                    if new_group_set not in self.letter_sets:
-                                        new_level.append(new_group_set)
-                                        # self.letter_sets.append(new_group_set)
-                                if '' in self.letter_sets:
-                                    self.letter_sets.remove('')
-                                self.letter_sets.append({current_letter_set: new_level})
+                                self.letter_sets.append({word: ''})
                                 return self.letter_sets
+
+        else:
+            for letter in word:
+                letter_check = letter_check + letter
+                if letter_check in curr_set:
+                    continue
+                else:
+                    new_level = []
+                    current_letter_set = letter_check[:-1]
+                    new_letter_set = []
+                    old_letter_set = []
+                    [new_letter_set.append(letter) for letter in word if letter not in current_letter_set]
+                    new_group_set = ''.join(new_letter_set)
+                    [old_letter_set.append(old) for old in self.letter_sets[0] if old not in current_letter_set]
+                    old_group_set = ''.join(old_letter_set)
+                    if current_letter_set in self.letter_sets and current_letter_set != '':
+                        if current_letter_set == curr_set:
+                            tmp = []
+                            [tmp.append(letter) for letter in word if letter not in current_letter_set]
+                            tmp = ''.join(tmp)
+                            new_level.append([tmp])
+                            # self.letter_sets.append(tmp)
+
+                    # else:
+                        # self.letter_sets.append(current_letter_set)
+                    if new_group_set or old_group_set != '':
+                        if self.root_set in self.letter_sets:
+                            self.letter_sets.remove(self.root_set)
+                            self.root_set = self.letter_sets
+                        if old_group_set not in self.letter_sets:
+                            new_level.append(old_group_set)
+                            # self.letter_sets.append(old_group_set)
+                        if new_group_set not in self.letter_sets:
+                            new_level.append(new_group_set)
+                            # self.letter_sets.append(new_group_set)
+                    if '' in self.letter_sets:
+                        self.letter_sets.remove('')
+                    self.letter_sets.append({current_letter_set: new_level})
+                    return self.letter_sets
 
     def print_tree(self):
         count = 0
