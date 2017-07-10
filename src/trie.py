@@ -54,7 +54,25 @@ class TrieTree(object):
                                                 if tmp == item:
                                                     continue
                                                 else:
-                                                    new_level[0].append(tmp)
+                                                    count = -1
+                                                    for group in new_level[0]:
+                                                        count += 1
+                                                        if tmp[0] in group:
+                                                            del_letters = ''
+                                                            for tmp_letter in tmp:
+                                                                del_letters = del_letters + tmp_letter
+                                                                if del_letters == group:
+                                                                    level_3 = []
+                                                                    [level_3.append(char) for char in tmp if char not in group]
+                                                                    level_3_group = ''.join(level_3)
+                                                                    new_level[0][count] = [{group: level_3_group}]
+                                                                    # count += 1
+                                                                    if count > -1:
+                                                                        count = -1
+                                                                    # new_level[0].append(tmp)
+                                                                else:
+                                                                    if del_letters in group:
+                                                                        continue
                                                 # self.letter_sets.append(tmp)
 
                                             else:
