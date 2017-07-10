@@ -18,6 +18,7 @@ class TrieTree(object):
                 self.root_set = self.letter_sets[0]
                 return self.letter_sets
                 break
+
             else:
                 import pdb; pdb.set_trace()
                 letter_check = ''
@@ -25,6 +26,9 @@ class TrieTree(object):
                     if type(curr_set) == dict:
                         for item in curr_set.keys():
                             if type(item) == str:
+                                if word[0] not in item:
+                                    self.letter_sets.append({word: word})
+                                    return self.letter_sets
                                 for letter in word:
                                     letter_check = letter_check + letter
                                     if letter_check == item:
