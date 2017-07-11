@@ -20,7 +20,7 @@ class TrieTree(object):
                 break
 
             else:
-                # import pdb; pdb.set_trace()
+                import pdb; pdb.set_trace()
                 dict_check = []
                 for i in self.letter_sets:
                     dict_check.append(i)
@@ -71,8 +71,8 @@ class TrieTree(object):
                                                                 else:
                                                                     if del_letters in group:
                                                                         continue
-                                                    # if tmp[0] not in new_level[0] and tmp[0] not in new_level[0][0]:
-                                                        # new_level[0].append(tmp)
+                                                    if tmp[0] not in new_level[0]:
+                                                        new_level[0].append(tmp)
 
                                             else:
                                                 if new_group_set or old_group_set != '':
