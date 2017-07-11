@@ -20,7 +20,7 @@ class TrieTree(object):
                 break
 
             else:
-                import pdb; pdb.set_trace()
+                # import pdb; pdb.set_trace()
                 dict_check = []
                 for i in self.letter_sets:
                     dict_check.append(i)
@@ -65,31 +65,26 @@ class TrieTree(object):
                                                                     level_3 = []
                                                                     [level_3.append(char) for char in tmp if char not in group]
                                                                     level_3_group = ''.join(level_3)
-                                                                    new_level[0][count] = [{group: level_3_group}]
-                                                                    # count += 1
+                                                                    new_level[0][count] = {group: level_3_group}
                                                                     if count > -1:
                                                                         count = -1
-                                                                    # new_level[0].append(tmp)
                                                                 else:
                                                                     if del_letters in group:
                                                                         continue
-                                                # self.letter_sets.append(tmp)
+                                                    # if tmp[0] not in new_level[0] and tmp[0] not in new_level[0][0]:
+                                                        # new_level[0].append(tmp)
 
                                             else:
-                                            # self.letter_sets.append(current_letter_set)
                                                 if new_group_set or old_group_set != '':
                                                     if self.root_set in self.letter_sets:
                                                         self.letter_sets.remove(self.root_set)
                                                         self.root_set = self.letter_sets
                                                     if old_group_set not in self.letter_sets:
                                                         new_level.append(old_group_set)
-                                                        # self.letter_sets.append(old_group_set)
                                                     if new_group_set not in self.letter_sets:
                                                         new_level.append(new_group_set)
-                                                        # self.letter_sets.append(new_group_set)
                                                 if '' in self.letter_sets:
                                                     self.letter_sets.remove('')
-                                        # self.letter_sets.append({current_letter_set: new_level})
                                         return self.letter_sets
                                         break
 
@@ -119,8 +114,7 @@ class TrieTree(object):
                             tmp = []
                             [tmp.append(letter) for letter in word if letter not in current_letter_set]
                             tmp = ''.join(tmp)
-                            new_level.append([tmp])
-                            # self.letter_sets.append(tmp)
+                            # new_level.append([tmp])
 
                     # else:
                         # self.letter_sets.append(current_letter_set)
