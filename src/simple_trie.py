@@ -1,29 +1,29 @@
-test_list = ['mon', 'ta', 'read']
+# test_list = ['mon', 'ta', 'read']
 
 
-def compare(input_word, index=0, word_set=test_list):
-    #if check_if_word_in_set(input_word, word_set):
-        #return test_list
-    while True:
-        temp_list = list(filter(lambda x: input_word[0:index] == x[0:index], word_set))
-        if temp_list:
-            new_list = []
-            for letter in input_word:
-                new_list.append(letter)
-                if new_list == temp_list:
-                    [new_list.append(letter) for letter in input_word if letter not in temp_list]
-            index += 1
-            import pdb; pdb.set_trace()
-            if index > len(input_word):
-                word_set.remove(temp_list[0])
-                word_set.append(input_word)
-                word_set.append(temp_list[0][index-1:])
-                return word_set
-        else:
-            word_set.append(input_word)
-            return word_set
+# def compare(input_word, index=0, word_set=test_list):
+#     #if check_if_word_in_set(input_word, word_set):
+#         #return test_list
+#     while True:
+#         temp_list = list(filter(lambda x: input_word[0:index] == x[0:index], word_set))
+#         if temp_list:
+#             new_list = []
+#             for letter in input_word:
+#                 new_list.append(letter)
+#                 if new_list == temp_list:
+#                     [new_list.append(letter) for letter in input_word if letter not in temp_list]
+#             index += 1
+#             import pdb; pdb.set_trace()
+#             if index > len(input_word):
+#                 word_set.remove(temp_list[0])
+#                 word_set.append(input_word)
+#                 word_set.append(temp_list[0][index-1:])
+#                 return word_set
+#         else:
+#             word_set.append(input_word)
+#             return word_set
 
-_end = '$'
+end = '$'
 
 
 def make_trie(*words):
@@ -32,8 +32,8 @@ def make_trie(*words):
         current_dict = root
         for letter in word:
             current_dict = current_dict.setdefault(letter, {})
-        current_dict[_end] = _end
-        import pdb; pdb.set_trace()
+        current_dict[end] = end
+        # import pdb; pdb.set_trace()
     return root
 
 # test_list = ['mon', 'ta', 'read']
