@@ -4,6 +4,33 @@ from insertion_sort import existing_set_insertion_sort as esis
 from insertion_sort import insertion_sort
 
 
+def merge2(numbers):
+    if len(numbers) == 1:
+        return numbers
+    if len(numbers) == 2:
+        if numbers[0] > numbers[1]:
+            numbers[0], numbers[1] = numbers[1], numbers[0]
+        return numbers
+    midpnt = len(numbers) // 2
+    left = merge2(numbers[:midpnt])
+    right = merge2(numbers[midpnt:])
+
+    output = []
+    while left or right:
+        if left and right and left[0] < right[0]:
+            output.append(left.pop(0))
+        elif left and right and left[0] >= right[0]:
+            output.append(right.pop(0))
+        elif left and not right:
+            output.extend(left)
+            break
+        elif right and not left:
+            output.extend(right)
+            break
+
+    return output
+
+
 def merge_sort(numbers):
     """Sort a iterable of numbers into min first via merge sort."""
     final = []
