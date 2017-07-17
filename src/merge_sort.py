@@ -5,6 +5,7 @@ from insertion_sort import insertion_sort
 
 
 def merge2(numbers):
+    """Mob Programming"""
     if len(numbers) == 1:
         return numbers
     if len(numbers) == 2:
@@ -32,7 +33,7 @@ def merge2(numbers):
 
 
 def merge_sort(numbers):
-    """Sort a iterable of numbers into min first via merge sort."""
+    """Sort a iterable of numbers into min first via merge sort non-recursively."""
     final = []
     compare = []
     temp = []
@@ -43,7 +44,7 @@ def merge_sort(numbers):
         if numbers[0] > numbers[1]:
             numbers[0], numbers[1] = numbers[1], numbers[0]
             return numbers
-        return numbers
+
     elif len(numbers) == 3:
         return insertion_sort(numbers)
     if len(numbers) % 2 == 0:
