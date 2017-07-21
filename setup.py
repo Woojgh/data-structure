@@ -1,14 +1,15 @@
+"""Setup for data-structure package."""
 from setuptools import setup
 
 extra_packages = {
-    'testing': ['ipython', 'pytest', 'pytest-cov', 'tox']
+    'testing': ['ipython', 'pytest', 'tox']
 }
 
 setup(
     name='data-structures',
     desctription='A variety of data structures built with Python.',
     version='0.1',
-    author='James Salamonsen',
+    author='James Salamonsen and Alex Short',
     author_email='jamessalamonsen@gmail.com',
     license='MIT',
     py_modules=[],
