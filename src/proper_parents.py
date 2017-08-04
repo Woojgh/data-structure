@@ -12,8 +12,8 @@ def pp(string):
             else:
                 result -= 1
                 if result < 0:
-                    return 'It\'s broken'
+                    return -1
     if parens:
-        return 'All balanced' if result == 0 else 'It\'s open'
+        return 0 if result == 0 else 1
     else:
         return 'No parents'

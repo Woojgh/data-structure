@@ -2,7 +2,6 @@
 
 
 def quick_sort(numbers):
-    import pdb; pdb.set_trace()
     pivot = numbers[0]
     pivot_index = numbers.index(pivot)
     store_index = numbers.index(pivot) + 1
