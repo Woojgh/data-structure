@@ -5,7 +5,7 @@ from insertion_sort import insertion_sort
 
 
 def merge2(numbers):
-    """Mob Programming"""
+    """Merge sort, recursive."""
     if len(numbers) == 1:
         return numbers
     if len(numbers) == 2:
